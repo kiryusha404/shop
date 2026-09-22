@@ -1,32 +1,29 @@
 <?php
 
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Product extends Model
+class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
-    protected $primaryKey = 'id';
+    protected $table = 'order_items';
+    protected $primaryKey = null;
 
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'img',
+        'id_order',
+        'id_product',
         'price',
-        'country',
-        'year',
-        'model',
         'quantity',
-        'id_category',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
-        'year' => 'integer',
         'quantity' => 'integer',
     ];
 }
