@@ -22,4 +22,3 @@ Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('ma
 Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
 Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'product'])->name('product');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

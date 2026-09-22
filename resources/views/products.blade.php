@@ -7,7 +7,7 @@
         <form class="row g-2">
             <div class="col">
                 <label for="sort" class="form-label">Вид сортировки</label>
-                <select class="form-select" id="sort">
+                <select class="form-select" name="sort" id="sort" onchange="this.form.submit()">
                     <option value="1">По умолчанию</option>
                     <option value="2">По цене: от большего к меньшему</option>
                     <option value="3">По цене: от меньшего к большему</option>
@@ -17,7 +17,7 @@
             </div>
             <div class="col">
                 <label for="category" class="form-label">Категория</label>
-                <select class="form-select" id="category">
+                <select class="form-select" name="category" id="category" onchange="this.form.submit()">
                     <option value="0">Все</option>
                     <option value="1">Категория 1</option>
                     <option value="2">Категория 2</option>
