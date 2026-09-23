@@ -19,9 +19,10 @@
                 <label for="category" class="form-label">Категория</label>
                 <select class="form-select" name="category" id="category" onchange="this.form.submit()">
                     <option value="0">Все</option>
-                    <option value="1">Категория 1</option>
-                    <option value="2">Категория 2</option>
-                    <option value="3">Категория 3</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+
                 </select>
             </div>
         </form>
@@ -29,52 +30,26 @@
         <hr class="my-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
 
+            @foreach($products as $product)
             <div class="col">
-                <a href="{{ route('product', 1) }}" class="text-decoration-none">
-                    <div class="card h-100 object-fit-cover">
-                        <img src="..." class="card-img-top" alt="...">
+                <a href="{{ route('product', $product->id) }}" class="text-decoration-none">
+                    <div class="card h-100 ">
+                        <img src="{{ asset('/assets/img/' . $product->img) }}" class="card-img-top object-fit-cover" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Заголовок карточки</h5>
-                            <p class="card-text">Это более длинная карта С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">Цена: {{ $product->price }}</p>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col">
-                <a href="{{ route('product', 1) }}" class="text-decoration-none">
-                    <div class="card h-100 object-fit-cover">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Заголовок карточки</h5>
-                            <p class="card-text">Это более длинная карта С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col">
-                <a href="{{ route('product', 1) }}" class="text-decoration-none">
-                    <div class="card h-100 object-fit-cover">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Заголовок карточки</h5>
-                            <p class="card-text">Это более длинная карта С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col">
-                <a href="{{ route('product', 1) }}" class="text-decoration-none">
-                    <div class="card h-100 object-fit-cover">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Заголовок карточки</h5>
-                            <p class="card-text">Это более длинная карта С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
+            @endforeach
 
+
+
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {{ $products->links('pagination::bootstrap-4') }}
+        </div>
     </div>
 
 @endsection

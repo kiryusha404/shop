@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('assets/js/bootstrap.js') }}" defer></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}" defer></script>
 
     <!-- Fonts -->
 
