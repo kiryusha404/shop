@@ -39,8 +39,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('products') }}">{{ __('Каталог') }}</a>
                         </li>
-
+                        @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('cart') }}">{{ __('Корзина') }}</a>
+                        </li>
+                        @endguest
                     </ul>
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -64,6 +69,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if(auth()->user() && auth()->user()->is_admin)
+                                    <a class="dropdown-item" href="{{ route('admin') }}">
+                                        {{ __('Админ панель') }}
+                                    </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -73,7 +83,9 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+
                                 </div>
+
                             </li>
                         @endguest
                     </ul>
