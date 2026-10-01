@@ -40,11 +40,11 @@
         </div>
     </div>
 
-    <!-- Модальное окно: Добавить товар -->
+
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('product.create') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="addProductModalLabel">Добавить товар</h5>
@@ -52,50 +52,42 @@
                     </div>
                     <div class="modal-body">
                         <div class="row g-3">
-                            <!-- Название -->
                             <div class="col-12">
                                 <label for="name" class="form-label">Название</label>
                                 <input type="text" class="form-control" id="name" name="name" required >
                             </div>
 
-                            <!-- Изображение (файл) -->
                             <div class="col-12">
                                 <label for="img" class="form-label">Изображение (файл)</label>
                                 <input type="file" class="form-control" id="img" name="img" accept="image/*" required>
 
                             </div>
 
-                            <!-- Цена -->
                             <div class="col-md-6">
                                 <label for="price" class="form-label">Цена</label>
                                 <input type="number" step="0.01" class="form-control" id="price" name="price" required >
                             </div>
 
-                            <!-- Страна -->
                             <div class="col-md-6">
                                 <label for="country" class="form-label">Страна</label>
                                 <input type="text" class="form-control" id="country" name="country" required>
                             </div>
 
-                            <!-- Год -->
                             <div class="col-md-6">
                                 <label for="year" class="form-label">Год</label>
                                 <input type="number" class="form-control" id="year" name="year" required >
                             </div>
 
-                            <!-- Модель -->
                             <div class="col-md-6">
                                 <label for="model" class="form-label">Модель</label>
                                 <input type="text" class="form-control" id="model" name="model" >
                             </div>
 
-                            <!-- Количество -->
                             <div class="col-md-6">
                                 <label for="quantity" class="form-label">Количество</label>
                                 <input type="number" class="form-control" id="quantity" name="quantity"  min="0">
                             </div>
 
-                            <!-- Категория (селект) -->
                             <div class="col-md-6">
                                 <label for="id_category" class="form-label">Категория</label>
                                 <select class="form-select" id="id_category" name="id_category" required>

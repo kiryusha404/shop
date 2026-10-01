@@ -20,4 +20,30 @@ class AdminController extends Controller
 
         return view('admin', compact('categories', 'products'));
     }
+
+    public function product_create(Request $request)
+    {
+        $products = new Product();
+
+        if($request->hasFile('img')){
+            $file = $request->file('img');
+
+            $name_img = time() . '_' . uniqid() . $file->getClientOriginalName();
+
+            $file->move(public_path('assets/img') ,  $name_img);
+            $products->img = $name_img;
+        }
+
+        $products->name = $request->input('name');
+        $products->price = $request->input('price');
+        $products->country = $request->input('country');
+        $products->year = $request->input('year');
+        $products->model = $request->input('model');
+        $products->quantity = $request->input('quantity');
+        $products->id_category = $request->input('id_category');
+
+        $products->save();
+
+        return redirect()->back();
+    }
 }

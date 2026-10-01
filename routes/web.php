@@ -15,3 +15,4 @@ Route::get('/cart', [App\Http\Controllers\LkController::class, 'index'])->name('
 
 //админка
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+Route::post('/admin/product/create', [App\Http\Controllers\AdminController::class, 'product_create'])->name('product.create');
