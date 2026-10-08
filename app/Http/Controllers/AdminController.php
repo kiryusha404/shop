@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\CreateProduct;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -21,8 +22,11 @@ class AdminController extends Controller
         return view('admin', compact('categories', 'products'));
     }
 
-    public function product_create(Request $request)
+    public function product_create(CreateProduct $request)
     {
+
+        //$request = $request->validated();
+
         $products = new Product();
 
         if($request->hasFile('img')){
@@ -39,7 +43,9 @@ class AdminController extends Controller
         $products->country = $request->input('country');
         $products->year = $request->input('year');
         $products->model = $request->input('model');
-        $products->quantity = $request->input('quantity');
+        if(!empty($request->input('quantity'))) {
+            $products->quantity = $request->input('quantity');
+        }
         $products->id_category = $request->input('id_category');
 
         $products->save();
