@@ -18,4 +18,7 @@ Route::patch('/cart/minus', [App\Http\Controllers\LkController::class, 'minus_ca
 
 //админка
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+Route::get('/admin/product/update/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.product.update');
 Route::post('/admin/product/create', [App\Http\Controllers\AdminController::class, 'product_create'])->name('product.create');
+Route::delete('/admin/product/delete', [App\Http\Controllers\AdminController::class, 'product_delete'])->name('product.delete');
+Route::put('/admin/product/update/{id}', [App\Http\Controllers\AdminController::class, 'product_update'])->name('product.update');

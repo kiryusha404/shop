@@ -35,9 +35,9 @@ class LkController extends Controller
                 $cart->save();
             }
             catch (\Exception $exception){
-                $cart = Cart::where('id_user', Auth::id())->where('id_product', $product->id)->first();
+                $cart = Cart::rule($product->id)->first();
                 if($cart->quantity < $product->quantity) {
-                    Cart::where('id_user', Auth::id())->where('id_product', $product->id)->update(['quantity' => $cart->quantity + 1]);
+                    Cart::rule($product->id)->update(['quantity' => $cart->quantity + 1]);
                 }
             }
             return redirect()->route('cart');
@@ -45,20 +45,20 @@ class LkController extends Controller
 
     public function minus_cart(Request $request){
         $product = Product::select('id', 'quantity')->where('quantity', '>', '0')->FindOrFail($request->id_product);
-        $cart = Cart::where('id_user', Auth::id())->where('id_product', $product->id)->first();
+        $cart = Cart::rule($product->id)->first();
         try {
-            Cart::where('id_user', Auth::id())->where('id_product', $product->id)->update(['quantity' => $cart->quantity - 1]);
+            Cart::rule($product->id)->update(['quantity' => $cart->quantity - 1]);
         }
         catch (\Exception $exception){
-            Cart::where('id_user', Auth::id())->where('id_product', $product->id)->delete();
+            Cart::rule($product->id)->delete();
         }
         return redirect()->route('cart');
     }
     public function plus_cart(Request $request){
         $product = Product::select('id', 'quantity')->where('quantity', '>', '0')->FindOrFail($request->id_product);
-        $cart = Cart::where('id_user', Auth::id())->where('id_product', $product->id)->first();
+        $cart = rule($product->id)->first();
         if($cart->quantity < $product->quantity) {
-            Cart::where('id_user', Auth::id())->where('id_product', $product->id)->update(['quantity' => $cart->quantity + 1]);
+            Cart::rule($product->id)->update(['quantity' => $cart->quantity + 1]);
 
         }
         return redirect()->route('cart');

@@ -27,8 +27,15 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ number_format($product->price, 2) }} ₽</td>
                             <td class="text-end">
-                                <button type="button" class="btn btn-primary">Изменить</button>
-                                <button type="button" class="btn btn-danger">Удалить</button>
+                                <a href="{{ route('admin.product.update', $product->id) }}">
+                                    <button type="button" class="btn btn-primary">Изменить</button>
+                                </a>
+                                <form method="POST" action="{{ route('product.delete') }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
