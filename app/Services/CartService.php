@@ -4,11 +4,12 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartService
 {
-    public function getCartData(int $userId): array
+    public function getCartData(): array
     {
         $carts = Cart::select(
             'products.id as id',
@@ -17,20 +18,20 @@ class CartService
             'products.img as img',
             'cart.quantity as quantity'
         )
-            ->where('id_user', $userId)
+            ->where('id_user', Auth::id())
             ->join('products', 'cart.id_product', '=', 'products.id')
             ->get();
 
-        $count = Cart::where('id_user', $userId)->count();
+        $count = Cart::where('id_user', Auth::id())->count();
 
-        $total_price = Cart::where('id_user', $userId)
+        $total_price = Cart::where('id_user', Auth::id())
             ->join('products', 'cart.id_product', '=', 'products.id')
             ->sum(DB::raw('price * cart.quantity'));
 
         return compact('carts', 'count', 'total_price');
     }
 
-    public function addToCart(int $userId, int $productId): void
+    public function addToCart(int $productId): void
     {
         $product = Product::select('id', 'quantity')
             ->where('quantity', '>', 0)
@@ -44,34 +45,33 @@ class CartService
             }
         } else {
             Cart::create([
-                'id_user' => $userId,
+                'id_user' => Auth::id(),
                 'id_product' => $product->id,
                 'quantity' => 1,
             ]);
         }
     }
 
-    public function incrementQuantity(int $userId, int $productId): void
+    public function incrementQuantity(int $productId): void
     {
         $product = Product::select('id', 'quantity')->findOrFail($productId);
 
-        // Явно передаем id_user в скоуп или используем where, чтобы не было сбоев с сессией
-        $cart = Cart::where('id_user', $userId)->where('id_product', $productId)->first();
+        $cart = Cart::rule($productId)->first();
 
         if ($cart && $cart->quantity < $product->quantity) {
-            Cart::where('id_user', $userId)->where('id_product', $productId)->increment('quantity');
+            Cart::rule($productId)->increment('quantity');
         }
     }
 
-    public function decrementQuantity(int $userId, int $productId): void
+    public function decrementQuantity(int $productId): void
     {
-        $cart = Cart::where('id_user', $userId)->where('id_product', $productId)->first();
+        $cart = Cart::rule($productId)->first();
 
         if ($cart) {
             if ($cart->quantity > 1) {
-                Cart::where('id_user', $userId)->where('id_product', $productId)->decrement('quantity');
+                Cart::rule($productId)->decrement('quantity');
             } else {
-                Cart::where('id_user', $userId)->where('id_product', $productId)->delete();
+                Cart::rule($productId)->delete();
             }
         }
     }

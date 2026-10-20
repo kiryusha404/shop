@@ -15,7 +15,7 @@ class LkController extends Controller
 
     public function index(CartService $cartService)
     {
-        $data = $cartService->getCartData(Auth::id());
+        $data = $cartService->getCartData();
 
         return view('cart', $data);
     }
@@ -24,7 +24,7 @@ class LkController extends Controller
     {
         $request->validate(['id_product' => 'required|exists:products,id']);
 
-        $cartService->addToCart(Auth::id(), $request->id_product);
+        $cartService->addToCart($request->id_product);
 
         return redirect()->route('cart');
     }
@@ -33,7 +33,7 @@ class LkController extends Controller
     {
         $request->validate(['id_product' => 'required|exists:products,id']);
 
-        $cartService->decrementQuantity(Auth::id(), $request->id_product);
+        $cartService->decrementQuantity($request->id_product);
 
         return redirect()->route('cart');
     }
@@ -42,7 +42,7 @@ class LkController extends Controller
     {
         $request->validate(['id_product' => 'required|exists:products,id']);
 
-        $cartService->incrementQuantity(Auth::id(), $request->id_product);
+        $cartService->incrementQuantity($request->id_product);
 
         return redirect()->route('cart');
     }
