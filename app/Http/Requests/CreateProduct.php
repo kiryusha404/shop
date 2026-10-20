@@ -8,12 +8,15 @@ class CreateProduct extends FormRequest
 {
     public function rules(): array
     {
+
+        $imgRule = $this->isMethod('put') || $this->isMethod('post') ? 'nullable' : 'required';
+
         return [
             'name'        => ['required', 'string', 'max:255', 'regex:/^[а-яА-ЯёЁ0-9\s]+$/iu'],
             'price'       => ['required', 'numeric', 'min:1', 'max:9999999999.99'],
             'id_category' => ['required', 'integer', 'min:1'],
             'quantity'    => ['nullable', 'integer', 'min:0'],
-            'img'         => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'img'         => [$imgRule, 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'model'       => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z0-9\s]+$/i'],
             'year'        => ['required', 'integer', 'min:2000', 'max:2100'],
             'country'     => ['required', 'string', 'max:100', 'regex:/^[а-яА-ЯёЁ\s]+$/iu'],

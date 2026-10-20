@@ -31,7 +31,7 @@ class AdminController extends Controller
 
     public function product_delete(Request $request, AdminServices $deleteProduct)
     {
-        $deleteProduct->findProduct($request->id)->deleteImg()->delete();
+        $deleteProduct->findProduct($request->id)->deleteImg($request)->delete();
         return redirect()->back();
     }
 
@@ -45,7 +45,7 @@ class AdminController extends Controller
 
     public function product_update($id, CreateProduct $request, AdminServices $updateProduct)
     {
-        $updateProduct->findProduct($id)->deleteImg()->createImg($request)->createOrUpdate($request)->save();
+        $updateProduct->findProduct($id)->deleteImg($request)->createImg($request)->createOrUpdate($request)->save();
         return redirect()->back();
     }
 }

@@ -34,11 +34,13 @@ class AdminServices
         return $this;
     }
 
-    public function deleteImg()
+    public function deleteImg(Request $request)
     {
-        $img_path = public_path('assets/img/' . $this->products->img);
-        if (File::exists($img_path)) {
-            File::delete($img_path);
+        if ($request->hasFile('img')) {
+            $img_path = public_path('assets/img/' . $this->products->img);
+            if (File::exists($img_path)) {
+                File::delete($img_path);
+            }
         }
         return $this;
     }
