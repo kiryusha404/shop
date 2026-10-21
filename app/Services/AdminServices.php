@@ -4,20 +4,27 @@ namespace App\Services;
 
 use App\Http\Requests\CreateProduct;
 use App\Models\Product;
+use App\Pepositories\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class AdminServices
 {
+    protected ProductRepositoryInterface $productRepository;
+   // protected ?Product $product = null;
+    public function __construct(ProductRepositoryInterface $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
     public function newProduct()
     {
-        $this->products = new Product();
+        $this->products = $this->productRepository->make();
         return $this;
     }
 
     public function findProduct($id)
     {
-        $this->products = Product::findOrFail($id);
+        $this->products = $this->productRepository->findOrFail($id);
         return $this;
     }
 
@@ -61,12 +68,12 @@ class AdminServices
 
     public function delete()
     {
-        $this->products->delete();
+        $this->productRepository->delete($this->products);
         return $this->products;
     }
     public function save()
     {
-        $this->products->save();
+        $this->productRepository->save($this->products);
         return $this->products;
     }
 
