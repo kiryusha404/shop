@@ -24,4 +24,12 @@ class ProductPepository implements ProductRepositoryInterface
     {
         return $product->delete();
     }
+    public function findNotNull(int $id_product): Product
+    {
+        return Product::select('id', 'quantity')->where('quantity', '>', 0)->findOrFail($id_product);
+    }
+    public function findQuantity(int $id_product): Product
+    {
+       return Product::select('id', 'quantity')->findOrFail($id_product);
+    }
 }

@@ -8,13 +8,16 @@ use App\Pepositories\CartRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Pepositories\CartRepositoryInterface;
+use App\Pepositories\ProductRepositoryInterface;
 
 class CartService
 {
     protected CartRepositoryInterface $cartRepository;
-    public function __construct(CartRepositoryInterface $cartRepository)
+    protected ProductRepositoryInterface $productRepository;
+    public function __construct(CartRepositoryInterface $cartRepository, ProductRepositoryInterface $productRepository)
     {
         $this->cartRepository = $cartRepository;
+        $this->productRepository = $productRepository;
     }
     public function getCartData(): array
     {
@@ -27,9 +30,7 @@ class CartService
 
     public function addToCart(int $productId): void
     {
-        $product = Product::select('id', 'quantity')
-            ->where('quantity', '>', 0)
-            ->findOrFail($productId);
+        $product = $this->productRepository->findNotNull($productId);
 
         $cart = $this->cartRepository->findFirst($productId);
 
@@ -44,7 +45,7 @@ class CartService
 
     public function incrementQuantity(int $productId): void
     {
-        $product = Product::select('id', 'quantity')->findOrFail($productId);
+        $product = $this->productRepository->findQuantity($productId);
 
         $cart = $this->cartRepository->findFirst($productId);
 
