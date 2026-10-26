@@ -4,11 +4,11 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Pepositories\CartRepository;
+use App\Repositories\CartRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Pepositories\CartRepositoryInterface;
-use App\Pepositories\ProductRepositoryInterface;
+use App\Repositories\CartRepositoryInterface;
+use App\Repositories\ProductRepositoryInterface;
 
 class CartService
 {

@@ -16,6 +16,9 @@ Route::post('/cart/add', [App\Http\Controllers\LkController::class, 'add_cart'])
 Route::patch('/cart/plus', [App\Http\Controllers\LkController::class, 'plus_cart'])->name('plus.cart');
 Route::patch('/cart/minus', [App\Http\Controllers\LkController::class, 'minus_cart'])->name('minus.cart');
 
+//заказы
+Route::post('/order/create', [App\Http\Controllers\OrderController::class, 'create_order'])->name('order.create');
+
 //админка
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 Route::get('/admin/product/update/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.product.update');

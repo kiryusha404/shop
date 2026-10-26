@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\CreateProduct;
 use App\Models\Product;
-use App\Pepositories\ProductRepositoryInterface;
+use App\Repositories\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 

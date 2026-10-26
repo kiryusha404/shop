@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Pepositories;
+namespace App\Repositories;
 use App\Models\Product;
 class ProductPepository implements ProductRepositoryInterface
 {
